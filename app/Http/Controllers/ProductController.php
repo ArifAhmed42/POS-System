@@ -17,6 +17,8 @@ class ProductController extends Controller
     {
         $products = Product::all();
         return view('home',['products'=>$products]);
+
+
     }
 
     /**
@@ -69,7 +71,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+     
+            $product = Product::find($id);
+            return view('create', compact('product'));        
+        
     }
 
     /**
@@ -79,9 +84,22 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request , $id)
     {
-        //
+       // $id->update($request->all());
+
+    //    dd($request->all());
+
+//echo ($id);
+
+         DB::table('products')
+             ->where('id','=',$id)
+             ->update([  'product_name' => $request->product_name,
+                        'product_inventory' => $request->product_inventory,
+                         'product_photo' => "..."]);
+  
+         return redirect()->route('productsindex')
+                         ->with('success','Product updated successfully');
     }
 
     /**
@@ -96,8 +114,8 @@ class ProductController extends Controller
 
        // $product = Product::findOrFail($id);
        // $product->delete();
-       $baal=$request->all();
-       DB::table('products')->where('id','=',$baal['id'])->delete();
+       $id=$request->all();
+       DB::table('products')->where('id','=',$id['id'])->delete();
   
         return redirect()->route('productsindex')
                         ->with('success','Product deleted successfully');

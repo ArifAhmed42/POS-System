@@ -78,7 +78,10 @@
                                          <button type="submit">Delete</button>
                                     </form> 
 
-                                    <a class="nav-link" method="POST" href="{{ url('/create') }}">Edit</a>
+                                    <a href="{{ route('contacts.edit',$product->id)}}" class="btn btn-primary">Edit</a>
+
+
+                                    <!-- <a class="nav-link" method="POST" href="{{ url('/create'),['id'=>$product->id]}}">Edit</a> -->
 
                             </td>
                             </tr>
